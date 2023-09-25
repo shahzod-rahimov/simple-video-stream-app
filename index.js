@@ -2,9 +2,10 @@ const express = require("express");
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
+require("dotenv").config();
 
 const app = express();
-const PORT = 7788;
+const PORT = process.env.PORT || 3003;
 
 const maxSize = 100 * 1000_000;
 
@@ -40,7 +41,7 @@ app.post("/upload", async (req, res) => {
     res.status(200).send({
       success: true,
       message: "Video uploaded successfully!",
-      video_path: `http://localhost:7788/stream/${file.filename}`,
+      video_path: `${process.env.BASE_URL}:${PORT}/stream/${file.filename}`,
     });
   });
 });
