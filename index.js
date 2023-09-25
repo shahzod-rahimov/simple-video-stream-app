@@ -2,11 +2,13 @@ const express = require("express");
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
+const morgan = require("morgan");
 require("dotenv").config();
 
 const app = express();
 const PORT = process.env.PORT || 3003;
 
+app.use(morgan('dev'))
 const maxSize = 100 * 1000_000;
 
 const storage = multer.diskStorage({
