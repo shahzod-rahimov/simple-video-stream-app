@@ -8,7 +8,7 @@ require("dotenv").config();
 const app = express();
 const PORT = process.env.PORT || 3003;
 
-app.use(morgan('dev'))
+app.use(morgan("dev"));
 const maxSize = 100 * 1000_000;
 
 const storage = multer.diskStorage({
@@ -52,6 +52,9 @@ app.post("/upload", async (req, res) => {
 app.get("/stream/:name", (req, res) => {
   const videoPath = `uploads/${req.params.name}`;
 
+  if (fs.existsSync(videoPath)) {
+    return res.status(404).send({ success: false, message: "Video not found" });
+  }
   const videoStat = fs.statSync(videoPath);
 
   const fileSize = videoStat.size;
