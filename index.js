@@ -1,6 +1,5 @@
 const express = require("express");
 const multer = require("multer");
-const path = require("path");
 const fs = require("fs");
 const morgan = require("morgan");
 require("dotenv").config();
@@ -12,7 +11,7 @@ app.use(morgan("dev"));
 const maxSize = 100 * 1000_000;
 
 const storage = multer.diskStorage({
-  destination: path.resolve(path.basename("/"), "uploads"),
+  destination: "uploads",
   // Rename the uploaded file with a timestamp
   filename: (req, file, cb) => cb(null, `${Date.now()}-${file.originalname}`),
 });
